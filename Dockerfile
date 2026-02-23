@@ -9,9 +9,9 @@ RUN apt-get update \
 
 WORKDIR /app
 
-# Install dependencies (package-lock.json required for npm ci)
+# Install dependencies (npm install tolerates lockfile drift; use npm ci after fixing lockfile)
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm install
 
 # Copy full backend source
 COPY . .
