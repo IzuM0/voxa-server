@@ -43,7 +43,9 @@ app.use(
   })
 );
 
-const frontendUrl = process.env.VITE_FRONTEND_URL || process.env.FRONTEND_URL || "http://localhost:5173";
+// Normalize: no trailing slash so CORS matches browser origin exactly
+const rawFrontendUrl = process.env.VITE_FRONTEND_URL || process.env.FRONTEND_URL || "http://localhost:5173";
+const frontendUrl = rawFrontendUrl.replace(/\/+$/, "") || rawFrontendUrl;
 app.use(
   cors({
     origin: frontendUrl,
